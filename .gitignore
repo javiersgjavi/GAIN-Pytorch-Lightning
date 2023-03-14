@@ -1,4 +1,8 @@
 # Byte-compiled / optimized / DLL files
+.idea/*
+.data/soruces/*
+.logs/*
+logs/*
 __pycache__/
 *.py[cod]
 *$py.class
