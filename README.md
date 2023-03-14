@@ -1,5 +1,5 @@
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
-[![HitCount](https://hits.dwyl.com/javiersgjavi/GAIN-Pytorch-Lightning.svg?style=flat-square&show=unique)](http://hits.dwyl.com/javiersgjavi/GAIN-Pytorch-Lightning)
+[![HitCount](https://hits.dwyl.com/javiersgjavi/ GAIN-Pytorch-Lightning.svg?style=flat-square&show=unique)](http://hits.dwyl.com/javiersgjavi/ GAIN-Pytorch-Lightning)
 
 # Pytorch Lightning implementation for "Generative Adversarial Imputation Networks (GAIN)"
 
