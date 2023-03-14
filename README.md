@@ -54,7 +54,7 @@ If you have exited the container, you can access it again by running the setup.s
 ### Example command
 
 ```shell
-$ python3 main_letter_spam.py --data_name spam 
+$ python3 main.py --data_name spam 
 --miss_rate: 0.2 --batch_size 128 --hint_rate 0.9 --alpha 100
 --iterations 10000
 ```
