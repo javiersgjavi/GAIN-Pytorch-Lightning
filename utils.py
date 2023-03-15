@@ -43,7 +43,7 @@ def generate_missing_mask(
     return x, input_mask_new
 
 
-def loss_c_d(d_prob: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
+def loss_d(d_prob: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
     """
     Compute the discriminator loss.
 
@@ -54,11 +54,10 @@ def loss_c_d(d_prob: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
     Returns:
         torch.Tensor: Discriminator loss
     """
-    m = m.int()
     return -torch.mean(m * torch.log(d_prob + 1e-8) + (1 - m) * torch.log(1. - d_prob + 1e-8))
 
 
-def loss_c_g(d_prob: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
+def loss_g(d_prob: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
     """
     Compute the generator loss.
 
@@ -69,5 +68,4 @@ def loss_c_g(d_prob: torch.Tensor, m: torch.Tensor) -> torch.Tensor:
     Returns:
         torch.Tensor: Generator loss
     """
-    m = m.int()
     return -torch.mean((1 - m) * torch.log(d_prob + 1e-8))

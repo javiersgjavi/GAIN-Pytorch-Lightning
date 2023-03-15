@@ -41,7 +41,7 @@ class Dataset(Dataset):
         Returns:
         Tuple: A tuple containing the missing data, the complete data, and the input mask.
         """
-        return self.data_missing[idx], self.data[idx], self.input_mask[idx]
+        return self.data_missing[idx], self.data[idx], self.input_mask[idx], self.input_mask[idx].astype(int)
 
     def get_missing_rate(self):
         print(f'Missing rate: {np.round(np.mean(self.input_mask == 0), 2)}')
@@ -71,16 +71,21 @@ class DataModule(pl.LightningModule):
 
         # Load the data from a CSV file based on the specified dataset name
         if dataset == 'credit':
-            self.data = pd.read_csv('data/sources/UCI_Credit_Card.csv')
+            self.data = pd.read_csv('./data/sources/UCI_Credit_Card.csv')
             self.data = self.data.drop(columns=['default.payment.next.month', 'ID'])
         elif dataset == 'spam':
-            self.data = pd.read_csv('data/sources/Spam.csv')
+            self.data = pd.read_csv('./data/sources/Spam.csv')
         elif dataset == 'letter':
-            self.data = pd.read_csv('data/sources/letter.csv')
+            self.data = pd.read_csv('./data/sources/letter.csv')
+        elif dataset == 'cancer':
+            self.data = pd.read_csv('./data/sources/cancer.csv')
+            self.data = self.data.drop(columns=['id', 'diagnosis', 'Unnamed: 32'])
+            self.data.head()
 
         # Normalize the data if requested
         if normalize:
-            self.data = pd.DataFrame(MinMaxScaler().fit_transform(self.data), columns=self.data.columns)
+            self.normalizer = MinMaxScaler()
+            self.data = pd.DataFrame(self.normalizer.fit_transform(self.data), columns=self.data.columns)
 
         # Convert the data to a numpy array
         self.data_numpy = self.data.to_numpy().astype(np.float32)
@@ -109,9 +114,6 @@ class DataModule(pl.LightningModule):
         train = Dataset(train, prop_missing=self.prop_missing)
         val = Dataset(val, prop_missing=self.prop_missing)
         test = Dataset(test, prop_missing=self.prop_missing)
-
-        # Print the missing rate for the train set for debugging purposes
-        train.get_missing_rate()
 
         # Create DataLoader objects for each set
         self.train_loader = DataLoader(train, batch_size=self.batch_size, shuffle=True)

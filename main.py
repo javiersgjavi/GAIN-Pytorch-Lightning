@@ -29,6 +29,21 @@ def main(args):
         hint_rate=hint_rate,
     )
 
+    print(f'''
+        -------------------------- Experiment --------------------------
+        Dataset: {dataset}
+        Missing rate: {miss_rate}
+        Batch size: {batch_size}
+        Hint rate: {hint_rate}
+        Alpha: {alpha}
+        Iterations: {iterations}
+        
+        Generator: {model.generator}
+        Discriminator: {model.discriminator}
+        ---------------------------------------------------------------
+        ''')
+
+
     # Train model
     exp_logger = TensorBoardLogger('./logs', name='tensorboard')
     trainer = Trainer(
@@ -42,6 +57,7 @@ def main(args):
     trainer.fit(model, datamodule=dm)
 
     trainer.test(model, datamodule=dm)
+
     # Save model
     files = glob.glob('./logs/tensorboard/*')
     newest = max(files, key=os.path.getctime)
@@ -53,7 +69,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--data_name',
-        choices=['credit', 'spam', 'letter'],
+        choices=['credit', 'spam', 'letter', 'cancer'],
         default='spam',
         type=str)
     parser.add_argument(

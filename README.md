@@ -17,6 +17,7 @@ using three UCI datasets.
 -   UCI Letter (https://archive.ics.uci.edu/ml/datasets/Letter+Recognition)
 -   UCI Spam (https://archive.ics.uci.edu/ml/datasets/Spambase)
 -   UCI Credit (https://archive.ics.uci.edu/ml/datasets/default+of+credit+card+clients)
+-   UCI Breast Cancer (https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Diagnostic))
 
 To run the pipeline for training and evaluation on GAIN framwork, simply run 
 ``python3 -m main.py``.

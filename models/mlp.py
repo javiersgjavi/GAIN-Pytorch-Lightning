@@ -11,15 +11,16 @@ class MLP(nn.Module):
         input_size (int): The size of the input tensor.
 
     """
+
     def __init__(self, input_size: int = None):
         super().__init__()
 
         # Define the fully connected layers in a sequential block
         self.fc_block = nn.Sequential(
-            nn.Linear(input_size*2, input_size),
-            nn.Tanh(),
+            nn.Linear(input_size * 2, input_size),
+            nn.ReLU(),
             nn.Linear(input_size, input_size),
-            nn.Tanh(),
+            nn.ReLU(),
             nn.Linear(input_size, input_size),
             nn.Sigmoid()
         ).apply(init_weights_xavier)
@@ -36,18 +37,17 @@ class MLP(nn.Module):
             torch.Tensor: The output tensor of the generator network.
 
         """
-        input_mask = input_mask.int()
-        noise_matrix = torch.randn_like(x).to(x.device)
+        noise_matrix = torch.distributions.uniform.Uniform(0, 0.01).sample(x.shape).to(x.device)
 
         # Concatenate the input tensor with the noise matrix
-        x = input_mask*x + (1-input_mask)*noise_matrix
+        x = input_mask * x + (1 - input_mask) * noise_matrix
 
         input_tensor = torch.cat([x, input_mask], dim=1)
 
         imputation = self.fc_block(input_tensor)
 
         # Concatenate the original data with the imputed data
-        res = input_mask*x + (1-input_mask)*imputation
+        res = input_mask * x + (1 - input_mask) * imputation
 
         return res, imputation
 
