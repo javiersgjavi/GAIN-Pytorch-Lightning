@@ -66,11 +66,8 @@ International Conference on Machine Learning (ICML), 2018.
 
 ## Built With :hammer:
 ![Lightning](https://img.shields.io/badge/PyTorch%20Lightning-792EE5.svg?style=for-the-badge&logo=PyTorch-Lightning&logoColor=white)
-
 ![Numpy](https://img.shields.io/badge/Numpy-777BB4.svg?style=for-the-badge&logo=Numpy&logoColor=white)
-
 ![Pandas](https://img.shields.io/badge/Pandas-2C2D72.svg?style=for-the-badge&logo=Pandas&logoColor=white)
-
 ![Docker](https://img.shields.io/badge/Docker-2496ED.svg?style=for-the-badge&logo=Docker&logoColor=white)
 
 
