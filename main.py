@@ -2,14 +2,13 @@ import os
 import glob
 import torch
 import argparse
-from models.gain import GAIN
-from data.datasets import DataModule
+from src.models.gain import GAIN
+from src.data.datasets import DataModule
 from pytorch_lightning import Trainer
 from pytorch_lightning.loggers import TensorBoardLogger
 
 
 def main(args):
-
     # Parse arguments
     alpha = args.alpha
     dataset = args.data_name
@@ -43,12 +42,11 @@ def main(args):
         ---------------------------------------------------------------
         ''')
 
-
     # Train model
-    exp_logger = TensorBoardLogger('./logs', name='tensorboard')
+    exp_logger = TensorBoardLogger('reports/logs_experiments', name=dataset)
     trainer = Trainer(
         max_steps=iterations,
-        default_root_dir='./logs',
+        default_root_dir='reports/logs_experiments',
         logger=exp_logger,
         accelerator='gpu',
         devices=1,
@@ -59,7 +57,7 @@ def main(args):
     trainer.test(model, datamodule=dm)
 
     # Save model
-    files = glob.glob('./logs/tensorboard/*')
+    files = glob.glob(f'./reports/logs_experiments/{dataset}/*')
     newest = max(files, key=os.path.getctime)
     torch.save(model.state_dict(), f'{newest}/model.pt')
 
@@ -69,7 +67,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
         '--data_name',
-        choices=['credit', 'spam', 'letter', 'cancer'],
+        choices=['credit', 'spam', 'letter', 'breast', 'news'],
         default='spam',
         type=str)
     parser.add_argument(
@@ -94,7 +92,7 @@ if __name__ == '__main__':
         type=float)
     parser.add_argument(
         '--iterations',
-        help='number of training interations',
+        help='number of training iterations',
         default=10000,
         type=int)
 

@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+
+ container_gain_pytorch_lightning:
+  image: gain_pytorch_lightning
+  volumes:
+   - ../:/app/
+  stdin_open: true
+  tty: true
+  deploy:
+   resources:
+    reservations:
+     devices:
+      - capabilities: [gpu]

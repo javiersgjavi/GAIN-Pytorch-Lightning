@@ -1,0 +1,6 @@
+numpy==1.24.2
+pandas==1.4.4
+scikit-learn==1.2.1
+tensorboard==2.11.2
+dataframe-image==0.1.5
+pytorch-lightning==1.7.7

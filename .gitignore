@@ -1,4 +1,6 @@
 # Byte-compiled / optimized / DLL files
+reports/*
+reports/replication_table1/
 .idea/*
 .data/soruces/*
 .logs/*
