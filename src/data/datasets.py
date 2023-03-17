@@ -69,7 +69,6 @@ class DataModule(pl.LightningModule):
 
         super().__init__()
 
-        import os
         # Load the data from a CSV file based on the specified dataset name
         if dataset == 'credit':
             self.data = pd.read_csv('./data/credit.csv')
